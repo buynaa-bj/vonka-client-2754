@@ -4,14 +4,14 @@ import { useScrollReveal } from "../hooks/useScrollReveal";
 
 const InstagramIcon = () => (
   <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-    <circle cx="12" cy="12" r="4"/>
-    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+    <circle cx="12" cy="12" r="4" />
+    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
   </svg>
 );
 const FacebookIcon = () => (
   <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
   </svg>
 );
 
@@ -31,14 +31,14 @@ export function ContactSection() {
   const ref = useScrollReveal();
 
   return (
-    <section id="contact" className="py-24 relative" style={{ background: "#F2F2F2" }}>
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="contact" className="py-40 relative w-full flex justify-center" style={{ background: "#F2F2F2" }}>
+      <div className="w-full max-w-7xl px-6">
         <div ref={ref} className="section-reveal">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left */}
             <div>
               <div className="flex items-center gap-2 mb-3">
-                <div className="w-6 h-1 rounded-full" style={{ background: "#FFD600" }} />
+                <div className="w-6  h-1 rounded-full" style={{ background: "#FFD600" }} />
                 <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "0.7rem", letterSpacing: "0.2em", color: "#888888", textTransform: "uppercase" }}>Contact</span>
               </div>
               <h2 className="font-black mb-6" style={{ fontFamily: "'Orbitron',sans-serif", fontSize: "clamp(2rem,5vw,3.5rem)", color: "#111111", lineHeight: 1.05 }}>

@@ -176,25 +176,85 @@ function GridFloor({ lit }: { lit: boolean }) {
   );
 }
 
-function Scene({ lit, scrollY }: { lit: boolean; scrollY: number }) {
-  const groupRef = useRef<THREE.Group>(null);
+function CenterModel({ lit, scrollY, windowH }: { lit: boolean; scrollY: number; windowH: number }) {
+  const modelRef = useRef<THREE.Group>(null);
+  
+  // ────────────────────────────────────────────────────────────────────────────
+  // 💡 CUSTOM 3D MODEL ЗААВАР:
+  // 1. '@react-three/drei' сангаас useGLTF-г import хийнэ.
+  //    (Дээд талын import хэсэгт `useGLTF` нэмнэ)
+  // 2. Өөрийн 3D моделийг (.glb эсвэл .gltf) `public` фолдерт хуулна.
+  // 3. Доорх кодыг uncomment хийгээд файлынхаа хуудсыг зааж өгнө.
+  //
+  // const { scene } = useGLTF('/models/my-custom-print.glb');
+  //
+  // 4. Доор байгаа <mesh>... цөм хэсгийг (Torus Knot) устгаад, оронд нь:
+  // <primitive object={scene} scale={2} /> 
+  // гэж бичээд л гүйцээ!
+  // ────────────────────────────────────────────────────────────────────────────
+
   useFrame(() => {
-    if (groupRef.current) {
-      groupRef.current.position.z = scrollY * 0.003;
-      groupRef.current.rotation.x = scrollY * 0.0004;
+    if (modelRef.current) {
+      // scrollY-ээс хамаарч эргүүлэх
+      modelRef.current.rotation.y = scrollY * 0.003;
     }
   });
+
+  // Эхний бөмбөлгөөс гараад (scrollY > windowH * 0.5) аажмаар гарч ирэх transition
+  const progress = Math.max(0, Math.min(1, (scrollY - windowH * 0.5) / (windowH * 0.4)));
+  
+  if (!lit || progress === 0) return null;
+
   return (
-    <group ref={groupRef}>
+    <group ref={modelRef} scale={progress} position={[0, -0.2, 0]}>
+      {/* ⚠️ ӨӨРИЙН МОДЕЛЬ ОРУУЛАХ БОЛ ЭНЭХҮҮ MESH-Г АРИЛГААД ДЭЭРХ ЗААВРЫГ ДАГААРАЙ */}
+      <Float speed={2} rotationIntensity={0.2} floatIntensity={0.5}>
+        <mesh>
+          <torusKnotGeometry args={[1.2, 0.4, 200, 32]} />
+          <meshStandardMaterial 
+            color="#FFD600" 
+            metalness={0.9} 
+            roughness={0.15} 
+            envMapIntensity={2.5} 
+          />
+        </mesh>
+      </Float>
+    </group>
+  );
+}
+
+function Scene({ lit, scrollY, windowH }: { lit: boolean; scrollY: number; windowH: number }) {
+  const introGroupRef = useRef<THREE.Group>(null);
+  
+  useFrame(() => {
+    if (introGroupRef.current) {
+      // scrollY-с хамаарч intro обьектууд маш хурдтайгаар камер руу (+Z) ойртоно
+      // windowH хүрэх үед камер бөмбөрцгийг нэвтэрч дотор нь орсон байна
+      introGroupRef.current.position.z = (scrollY / windowH) * 12;
+      introGroupRef.current.rotation.x = scrollY * 0.001;
+      introGroupRef.current.rotation.y = scrollY * 0.0005;
+    }
+  });
+  
+  return (
+    <group>
       <ambientLight intensity={lit ? 0.6 : 0.05} color="#FFFFFF" />
-      <PrinterCore lit={lit} />
-      <OrbitRing lit={lit} radius={2.2} speed={0.4} tilt={0.3} color="#FFD600" />
-      <OrbitRing lit={lit} radius={3.0} speed={-0.25} tilt={1.0} color="#333333" />
-      <OrbitRing lit={lit} radius={3.8} speed={0.15} tilt={0.6} color="#FFD600" />
-      <FloatingParticles lit={lit} />
-      <SmallOrbiters lit={lit} />
-      <GridFloor lit={lit} />
-      {lit && <Sparkles count={50} size={1.5} speed={0.3} opacity={0.6} color="#FFD600" scale={9} />}
+      
+      {/* 1. Эхний бөмбөрцөг болон цагирагууд (Камер руу ойртож өнгөрнө) */}
+      <group ref={introGroupRef}>
+        <PrinterCore lit={lit} />
+        <OrbitRing lit={lit} radius={2.2} speed={0.4} tilt={0.3} color="#FFD600" />
+        <OrbitRing lit={lit} radius={3.0} speed={-0.25} tilt={1.0} color="#333333" />
+        <OrbitRing lit={lit} radius={3.8} speed={0.15} tilt={0.6} color="#FFD600" />
+        <FloatingParticles lit={lit} />
+        <SmallOrbiters lit={lit} />
+        <GridFloor lit={lit} />
+        {lit && <Sparkles count={50} size={1.5} speed={0.3} opacity={0.6} color="#FFD600" scale={9} />}
+      </group>
+
+      {/* 2. Гол обьект буюу камер бөмбөрцөг рүү орсны дараа төвд харагдах модель */}
+      <CenterModel lit={lit} scrollY={scrollY} windowH={windowH} />
+
       <Environment preset="warehouse" />
     </group>
   );
@@ -353,7 +413,7 @@ export function HeroSection() {
           style={{ transform: `scale(${heroScale})`, transition: "transform 0.05s linear" }}
         >
           <Canvas camera={{ position: [0, 0, 5.5], fov: 58 }} gl={{ antialias: true, alpha: true }} style={{ background: "transparent" }}>
-            <Scene lit={lit} scrollY={scrollY} />
+            <Scene lit={lit} scrollY={scrollY} windowH={windowH} />
           </Canvas>
         </div>
 

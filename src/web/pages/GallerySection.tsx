@@ -106,8 +106,8 @@ export function GallerySection() {
   const filtered = filter === "all" ? galleryItems : galleryItems.filter(i => i.category === filter);
 
   return (
-    <section id="gallery" className="py-24 relative" style={{ background: "#EBEBEB" }}>
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="gallery" className="py-40 relative w-full flex justify-center" style={{ background: "#EBEBEB" }}>
+      <div className="w-full max-w-7xl px-6">
         <div ref={ref} className="section-reveal">
           <div className="mb-14 flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>

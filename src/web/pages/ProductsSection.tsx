@@ -169,8 +169,8 @@ export function ProductsSection({ onViewDetail }: { onViewDetail: (id: number) =
   const filtered = filter === "all" ? products : products.filter(p => p.category === filter);
 
   return (
-    <section id="products" className="py-24 relative" style={{ background: "#F2F2F2" }}>
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="products" className="py-40 relative w-full flex justify-center" style={{ background: "#F2F2F2" }}>
+      <div className="w-full max-w-7xl px-6">
         <div ref={ref} className="section-reveal">
           <div className="mb-14 flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>

@@ -21,8 +21,8 @@ export function AboutSection() {
   const ref = useScrollReveal();
 
   return (
-    <section id="about" className="py-24 relative overflow-hidden" style={{ background: "#F2F2F2" }}>
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="about" className="py-40 relative overflow-hidden w-full flex justify-center" style={{ background: "#F2F2F2" }}>
+      <div className="w-full max-w-7xl px-6">
         <div ref={ref} className="section-reveal">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left */}

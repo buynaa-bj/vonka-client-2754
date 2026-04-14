@@ -31,7 +31,7 @@ export function Navbar({ onCartOpen }: { onCartOpen: () => void }) {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 w-full flex justify-center"
         style={{
           background: scrolled ? "rgba(242,242,242,0.95)" : "transparent",
           backdropFilter: scrolled ? "blur(20px)" : "none",
@@ -39,7 +39,7 @@ export function Navbar({ onCartOpen }: { onCartOpen: () => void }) {
           padding: scrolled ? "12px 0" : "20px 0",
         }}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <div className="w-full max-w-7xl px-6 flex items-center justify-between">
           <a href="#hero" className="flex items-center gap-3">
             <Logo size={32} />
             <span style={{ fontFamily: "'Orbitron',sans-serif", letterSpacing: "0.15em", fontSize: "0.9rem", fontWeight: 700, color: "#111111" }}>

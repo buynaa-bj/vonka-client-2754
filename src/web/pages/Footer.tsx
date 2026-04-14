@@ -2,8 +2,8 @@ import { Logo } from "../components/Logo";
 
 export function Footer() {
   return (
-    <footer className="py-10 border-t" style={{ background: "#111111", borderColor: "rgba(255,255,255,0.06)" }}>
-      <div className="max-w-7xl mx-auto px-6">
+    <footer className="py-10 border-t w-full flex justify-center" style={{ background: "#111111", borderColor: "rgba(255,255,255,0.06)" }}>
+      <div className="w-full max-w-7xl px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <Logo size={28} />
