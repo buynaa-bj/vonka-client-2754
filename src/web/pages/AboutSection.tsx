@@ -23,8 +23,8 @@ export function AboutSection() {
   return (
     <section id="about" className="py-40 relative overflow-hidden w-full flex justify-center" style={{ background: "#F2F2F2" }}>
       <div className="w-full max-w-7xl px-6">
-        <div ref={ref} className="section-reveal">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div ref={ref} className="section-reveal ">
+          <div className="grid lg:grid-cols-2 gap-20 items-center">
             {/* Left */}
             <div>
               <div className="flex items-center gap-2 mb-3">
